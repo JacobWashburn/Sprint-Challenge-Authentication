@@ -123,3 +123,27 @@ describe('users', () => {
 
 });
 
+describe('jokes', () => {
+    it('returns 200 and list length > 0', () => {
+        return request(server)
+            .get('/api/jokes')
+            .set('Authorization', token)
+            .then(res => {
+                expect(res.status).toBe(200);
+                expect(res.body).toBeDefined();
+                expect(res.body.length).toBeGreaterThan(0);
+            });
+    });
+    it('first object has id and joke properties', () => {
+        return request(server)
+            .get('/api/jokes')
+            .set('Authorization', token)
+            .then(res => {
+                expect(res.status).toBe(200);
+                expect(res.body).toBeDefined();
+                expect(res.body.length).toBeGreaterThan(0);
+                expect(res.body[0].id).toBeDefined();
+                expect(res.body[0].joke).toBeDefined();
+            });
+    });
+});
